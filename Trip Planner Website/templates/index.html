@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Planner For Pune</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Trip Planner For Pune</h1>
+        <form method="post" class="mt-4">
+            <div class="form-group">
+                <label for="budget">Budget (in dollars)</label>
+                <input type="number" id="budget" name="budget" class="form-control" min="0" step="100" value="1000" required>
+            </div>
+            <div class="form-group">
+                <label for="hotel_rating">Hotel Rating</label>
+                <select id="hotel_rating" name="hotel_rating" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hotel_star_rating">Hotel Star Rating</label>
+                <select id="hotel_star_rating" name="hotel_star_rating" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="restaurant_rating">Restaurant Rating</label>
+                <select id="restaurant_rating" name="restaurant_rating" class="form-control" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="num_days">Number of Days</label>
+                <input type="number" id="num_days" name="num_days" class="form-control" min="1" step="1" value="3" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Recommendations</button>
+        </form>
+        {% if error %}
+        <div class="alert alert-danger mt-4">{{ error }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>

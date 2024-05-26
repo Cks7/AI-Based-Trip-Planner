@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Recommendations</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5">Trip Recommendations</h1>
+        {% for recommendation in recommendations %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2 class="card-title">Recommendations for Day {{ recommendation.day }}:</h2>
+                <p><strong>Recommended Restaurant:</strong> {{ recommendation.restaurant['Restaurant_Name'] }}</p>
+                {% if recommendation.nearest_hotel %}
+                <p><strong>Nearest Hotel:</strong> {{ recommendation.nearest_hotel['Hotel_name'] }}</p>
+                <p><strong>Distance to Nearest Hotel:</strong> {{ recommendation.nearest_hotel['distance_to_restaurant'] }} meters</p>
+                <p><strong>Hotel Rating:</strong> {{ recommendation.nearest_hotel['mmt_review_score_Hotel'] }}</p>
+                <p><strong>Hotel Star Rating:</strong> {{ recommendation.nearest_hotel['hotel_star_rating_Hotel'] }}</p>
+                {% else %}
+                <p>No hotels found meeting the criteria.</p>
+                {% endif %}
+                <p><strong>Restaurant Rating:</strong> {{ recommendation.restaurant['Ratings_out_of_5_Restaurant'] }}</p>
+                
+                <h3>Top 4 Hotels:</h3>
+                <ul class="list-group">
+                    {% for hotel in recommendation.top_hotels %}
+                    <li class="list-group-item">{{ hotel['Hotel_name'] }} - Rating: {{ hotel['mmt_review_score_Hotel'] }} - Star Rating: {{ hotel['hotel_star_rating_Hotel'] }}</li>
+                    {% endfor %}
+                </ul>
+                <h3 class="mt-4">Top 4 Places:</h3>
+                <ul class="list-group">
+                    {% for place in recommendation.top_places %}
+                    <li class="list-group-item">{{ place['Name_Place'] }} - Rating: {{ place['Ratings_out_of_5_Restaurant'] }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
